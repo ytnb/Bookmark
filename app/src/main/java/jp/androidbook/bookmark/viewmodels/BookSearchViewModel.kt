@@ -13,6 +13,7 @@ class BookSearchViewModel : ViewModel() {
         title.value = ""
         val list = Transformations.switchMap(title) { title ->
             Transformations.map(bookSearch(title)) { book ->
+                // ISBN番号があるものだけデータとして渡す
                 val items = book.items.filter {
                     !it.volumeInfo.industryIdentifiers.isNullOrEmpty()
                 }
