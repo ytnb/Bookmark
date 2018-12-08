@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/main"
+            app:startDestination="@id/bookListFragment">
+
+    <fragment
+            android:id="@+id/bookListFragment"
+            android:name="jp.androidbook.bookmark.BookListFragment"
+            android:label="fragment_book_list"
+            tools:layout="@layout/fragment_book_list">
+        <action
+                android:id="@+id/action_bookListFragment_to_bookListDetailFragment"
+                app:destination="@id/bookListDetailFragment"/>
+        <action
+                android:id="@+id/action_bookListFragment_to_bookSearchFragment"
+                app:destination="@id/bookSearchFragment"/>
+    </fragment>
+    <fragment
+            android:id="@+id/bookListDetailFragment"
+            android:name="jp.androidbook.bookmark.BookListDetailFragment"
+            android:label="fragment_book_list_detail"
+            tools:layout="@layout/fragment_book_list_detail"/>
+    <fragment
+            android:id="@+id/bookSearchFragment"
+            android:name="jp.androidbook.bookmark.BookSearchFragment"
+            android:label="fragment_book_search"
+            tools:layout="@layout/fragment_book_search">
+        <action
+                android:id="@+id/action_bookSearchFragment_to_bookSearchDetailFragment"
+                app:destination="@id/bookSearchDetailFragment"/>
+    </fragment>
+    <fragment
+            android:id="@+id/bookSearchDetailFragment"
+            android:name="jp.androidbook.bookmark.BookSearchDetailFragment"
+            android:label="fragment_book_search_detail"
+            tools:layout="@layout/fragment_book_search_detail">
+        <argument
+                android:name="isbn"
+                app:argType="string"/>
+    </fragment>
+</navigation>
