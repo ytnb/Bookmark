@@ -21,6 +21,7 @@ import jp.androidbook.bookmark.viewmodels.BookSearchViewModel
 class BookSearchFragment : Fragment() {
     lateinit var searchView: SearchView
     lateinit var adapter: BookSearchAdapter
+    lateinit var model: BookSearchViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding: FragmentBookSearchBinding =
@@ -37,8 +38,8 @@ class BookSearchFragment : Fragment() {
         )
         binding.booksearchRecyclerview.adapter = adapter
 
-        val model = ViewModelProviders.of(this).get(BookSearchViewModel::class.java)
-        model.bookSearchResult().observe(this, Observer { book ->
+        model = ViewModelProviders.of(this).get(BookSearchViewModel::class.java)
+        model.bookSearchResult.observe(this, Observer { book ->
             if (book != null) {
                 adapter.submitList(book.items)
             }
@@ -64,6 +65,7 @@ class BookSearchFragment : Fragment() {
                         Log.d("BookSearchFragment", "query is $query")
                         // TODO ↓不要？？
                         activity?.actionBar?.title = query
+                        model.setTitle(query)
                         searchView.clearFocus()
                         return true
                     }
