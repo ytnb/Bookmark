@@ -8,7 +8,7 @@ import com.bumptech.glide.request.RequestOptions
 @BindingAdapter("imageUrl")
 fun ImageView.loadImage(url: String?) {
     if (!url.isNullOrEmpty()) {
-        Glide.with(this.context).load(url).apply(RequestOptions().centerCrop()).into(this)
+        Glide.with(this.context).load(url).apply(RequestOptions().fitCenter()).into(this)
     } else{
         Glide.with(this.context).clear(this)
         this.setImageDrawable(null)
