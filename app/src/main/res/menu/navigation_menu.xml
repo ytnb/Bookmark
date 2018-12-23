@@ -2,8 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-            android:title="List Book"
+            android:title="@string/menu_book_list"
             android:id="@+id/bookListFragment"/>
-    <item android:title="Search Book"
+    <item
+            android:title="@string/menu_book_search_list"
             android:id="@+id/bookSearchFragment"/>
 </menu>

@@ -3,5 +3,14 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="searchable_hint">Search Book Name</string>
+    <string name="add_book_message">保存しました。</string>
+    <string name="remove_book_message">削除しました。</string>
+    <string name="menu_book_list">書籍情報一覧</string>
+    <string name="menu_book_search_list">検索一覧</string>
+    <string name="no_item_message">データがありません</string>
+    <string name="search_message">検索を行ってください</string>
+    <string name="image_content_description">Picture of Book</string>
+    <string name="submit">保存</string>
+    <string name="del">削除</string>
 </resources>
 

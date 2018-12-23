@@ -25,7 +25,8 @@
             <ImageView
                     app:imageUrl="@{viewmodel.book.items.get(0).volumeInfo.imageLinks.thumbnail}"
                     android:layout_width="0dp"
-                    android:id="@+id/imageView2"
+                    android:id="@+id/image_search_detail"
+                    android:contentDescription="@string/image_content_description"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +34,7 @@
                     android:layout_marginTop="8dp"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline_search_detail"
                     android:scaleType="fitXY"
                     android:layout_height="350dp"
                     />
@@ -41,7 +42,7 @@
             <android.support.constraint.Guideline
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/guideline2"
+                    android:id="@+id/guideline_search_detail"
                     android:orientation="horizontal"
                     app:layout_constraintGuide_percent="0.50"/>
 
@@ -50,11 +51,11 @@
                     tools:text="title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView3"
+                    android:id="@+id/tv_search_detail_title"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toTopOf="@+id/guideline2"
+                    app:layout_constraintTop_toTopOf="@+id/guideline_search_detail"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_marginEnd="9dp"
@@ -65,11 +66,11 @@
                     tools:text="authors"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView6"
+                    android:id="@+id/tv_search_detail_authors"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/textView3"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_search_detail_title"
                     android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -78,26 +79,26 @@
                     tools:text="publisher"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView7"
+                    android:id="@+id/tv_search_detail_publisher"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_search_detail_authors"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintEnd_toStartOf="@+id/textView9"/>
+                    app:layout_constraintEnd_toStartOf="@+id/tv_search_detail_publishedDate"/>
 
             <TextView
                     android:text="@{viewmodel.book.items.get(0).volumeInfo.publishedDate}"
                     tools:text="publishedDate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView9"
+                    android:id="@+id/tv_search_detail_publishedDate"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="8dp"
-                    app:layout_constraintStart_toEndOf="@+id/textView7"
+                    app:layout_constraintStart_toEndOf="@+id/tv_search_detail_publisher"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_search_detail_authors"
                     app:layout_constraintHorizontal_bias="0.5"/>
 
             <TextView
@@ -105,26 +106,26 @@
                     tools:text="description"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView8"
+                    android:id="@+id/tv_search_detail_description"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="8dp"
                     android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/textView7"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_search_detail_publisher"
                     />
 
             <!--TODO 暫定ボタン-->
             <Button
-                    android:text="Button"
+                    android:text="@string/submit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/button"
+                    android:id="@+id/btn_search_detail"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/textView8"/>
+                    app:layout_constraintTop_toBottomOf="@+id/tv_search_detail_description"/>
 
         </android.support.constraint.ConstraintLayout>
 

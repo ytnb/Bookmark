@@ -22,6 +22,10 @@
             android:name="jp.androidbook.bookmark.BookListDetailFragment"
             android:label="fragment_book_list_detail"
             tools:layout="@layout/fragment_book_list_detail"/>
+    <argument
+            android:name="id"
+            app:argType="integer"/>
+
     <fragment
             android:id="@+id/bookSearchFragment"
             android:name="jp.androidbook.bookmark.BookSearchFragment"
