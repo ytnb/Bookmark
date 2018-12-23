@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+                name="viewmodel"
+                type="jp.androidbook.bookmark.viewmodels.BookListViewModel"/>
+    </data>
 
     <android.support.design.widget.CoordinatorLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -14,9 +23,20 @@
                 android:layout_height="match_parent"
                 android:id="@+id/booklist_recyclerview"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                android:visibility="@{viewmodel.isEmpty() ? View.GONE : View.VISIBLE}"
                 android:scrollbars="vertical">
 
         </android.support.v7.widget.RecyclerView>
+
+        <TextView
+                android:text="@string/no_item_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView"
+                android:layout_gravity="center_horizontal|center"
+                android:visibility="@{viewmodel.isEmpty() ? View.VISIBLE : View.GONE}"
+                android:textSize="24sp"/>
+
 
         <android.support.design.widget.FloatingActionButton
                 android:src="@drawable/ic_add_white_24dp"

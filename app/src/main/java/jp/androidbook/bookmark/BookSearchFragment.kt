@@ -3,6 +3,8 @@ package jp.androidbook.bookmark
 
 import android.app.SearchManager
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.databinding.DataBindingUtil
@@ -14,6 +16,8 @@ import android.util.Log
 import android.view.*
 import jp.androidbook.bookmark.adapters.BookSearchAdapter
 import jp.androidbook.bookmark.data.Items
+import jp.androidbook.bookmark.data.api.BookApiRepository
+import jp.androidbook.bookmark.data.api.GoogleBookClients
 import jp.androidbook.bookmark.databinding.FragmentBookSearchBinding
 import jp.androidbook.bookmark.viewmodels.BookSearchViewModel
 
@@ -38,12 +42,24 @@ class BookSearchFragment : Fragment() {
         )
         binding.booksearchRecyclerview.adapter = adapter
 
-        model = ViewModelProviders.of(this).get(BookSearchViewModel::class.java)
-        model.bookSearchResult.observe(this, Observer { book ->
-            if (book != null) {
-                adapter.submitList(book.items)
+        model = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                val repository = BookApiRepository(GoogleBookClients)
+                @Suppress("UNCHECKED_CAST")
+                return BookSearchViewModel(repository) as T
+            }
+        }).get(BookSearchViewModel::class.java)
+
+        model.bookSearchResult.observe(this, Observer { items ->
+            if (items != null) {
+                adapter.submitList(items)
+                model.finishedLoading()
             }
         })
+
+        binding.viewmodel = model
+        binding.setLifecycleOwner(this@BookSearchFragment)
+
 
         return binding.root
     }
@@ -63,8 +79,6 @@ class BookSearchFragment : Fragment() {
                 it.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
                         Log.d("BookSearchFragment", "query is $query")
-                        // TODO ↓不要？？
-                        activity?.actionBar?.title = query
                         model.setTitle(query)
                         searchView.clearFocus()
                         return true

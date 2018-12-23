@@ -1,5 +1,6 @@
 package jp.androidbook.bookmark.adapters
 
+import android.arch.paging.PagedListAdapter
 import android.databinding.DataBindingUtil
 import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.widget.RecyclerView
@@ -12,17 +13,23 @@ import jp.androidbook.bookmark.R
 import jp.androidbook.bookmark.data.Items
 import jp.androidbook.bookmark.databinding.SearchListItemBinding
 
-class BookSearchAdapter: ListAdapter<Items, BookSearchAdapter.ItemsHolder>(ItemsDiffCallback()) {
+class BookSearchAdapter : PagedListAdapter<Items, BookSearchAdapter.ItemsHolder>(ItemsDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemsHolder {
-        val binding: SearchListItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.search_list_item, parent, false)
+        val binding: SearchListItemBinding =
+            DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.search_list_item, parent, false)
         return ItemsHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ItemsHolder, position: Int) {
         val item = getItem(position)
-        val isbn = item.volumeInfo.industryIdentifiers.first().identifier
-        holder.bind(item, createOnClickListener(isbn))
+        if (item != null) {
+            // TODO isbn 13だけ取りたい
+            val isbn = item.volumeInfo.industryIdentifiers.first().identifier
+            holder.bind(item, createOnClickListener(isbn))
+        } else {
+            // TODO ????
+        }
     }
 
     private fun createOnClickListener(isbn: String): View.OnClickListener {
@@ -32,7 +39,7 @@ class BookSearchAdapter: ListAdapter<Items, BookSearchAdapter.ItemsHolder>(Items
         }
     }
 
-    class ItemsHolder(private val binding: SearchListItemBinding): RecyclerView.ViewHolder(binding.root) {
+    class ItemsHolder(private val binding: SearchListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Items, clickListener: View.OnClickListener) {
             with(binding) {
                 this.volumeInfo = item.volumeInfo
