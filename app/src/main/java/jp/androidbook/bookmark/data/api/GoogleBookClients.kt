@@ -60,4 +60,10 @@ object GoogleBookClients {
 
         return data
     }
+
+    fun getBookFromTitleIndex(title: String, index: Int, requestSize: Int): Response<Book> {
+        val service = restClient().create(GoogleBookService::class.java)
+        return service.getBookFromTitleIndex(title, index, requestSize).execute()
+    }
+
 }

@@ -1,7 +1,7 @@
 package jp.androidbook.bookmark.data
 
 class SaleInfo(
-    val listPrice: ListPrice
+    val listPrice: ListPrice?
 )
 
 class ListPrice(
