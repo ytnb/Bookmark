@@ -1,11 +1,11 @@
 package jp.androidbook.bookmark.data.db
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.Room
-import android.arch.persistence.room.RoomDatabase
 import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
 
-@Database(entities = ([BookEntity::class]), version = 1)
+@Database(entities = ([BookEntity::class]), version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun BookDao(): BookDao
 

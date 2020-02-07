@@ -2,20 +2,18 @@ package jp.androidbook.bookmark
 
 
 import android.app.SearchManager
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.SearchView
 import android.util.Log
 import android.view.*
+import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import jp.androidbook.bookmark.adapters.BookSearchAdapter
-import jp.androidbook.bookmark.data.Items
 import jp.androidbook.bookmark.data.api.BookApiRepository
 import jp.androidbook.bookmark.data.api.GoogleBookClients
 import jp.androidbook.bookmark.databinding.FragmentBookSearchBinding
@@ -25,11 +23,22 @@ import jp.androidbook.bookmark.viewmodels.BookSearchViewModel
 class BookSearchFragment : Fragment() {
     lateinit var searchView: SearchView
     lateinit var adapter: BookSearchAdapter
-    lateinit var model: BookSearchViewModel
+    private val model: BookSearchViewModel by viewModels(factoryProducer = {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                val repository = BookApiRepository(GoogleBookClients)
+                @Suppress("UNCHECKED_CAST")
+                return BookSearchViewModel(repository) as T
+            }
+        }
+    })
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding: FragmentBookSearchBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_book_search, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding = FragmentBookSearchBinding.inflate(inflater, container, false)
 
         setHasOptionsMenu(true)
 
@@ -42,15 +51,7 @@ class BookSearchFragment : Fragment() {
         )
         binding.booksearchRecyclerview.adapter = adapter
 
-        model = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val repository = BookApiRepository(GoogleBookClients)
-                @Suppress("UNCHECKED_CAST")
-                return BookSearchViewModel(repository) as T
-            }
-        }).get(BookSearchViewModel::class.java)
-
-        model.bookSearchResult.observe(this, Observer { items ->
+        model.bookSearchResult.observe(viewLifecycleOwner, Observer { items ->
             if (items != null) {
                 adapter.submitList(items)
                 model.finishedLoading()
@@ -58,20 +59,20 @@ class BookSearchFragment : Fragment() {
         })
 
         binding.viewmodel = model
-        binding.setLifecycleOwner(this@BookSearchFragment)
+        binding.lifecycleOwner = this@BookSearchFragment
 
 
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
 
-        inflater?.inflate(R.menu.serach_menu, menu)
+        inflater.inflate(R.menu.serach_menu, menu)
 
         val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
 
-        menu?.run {
+        menu.run {
             searchView = findItem(R.id.app_bar_search).actionView as SearchView
             searchView.also {
                 it.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))

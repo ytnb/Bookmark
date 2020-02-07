@@ -1,7 +1,7 @@
 package jp.androidbook.bookmark.viewmodels
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import jp.androidbook.bookmark.data.Book
 import jp.androidbook.bookmark.data.api.GoogleBookClients
 import jp.androidbook.bookmark.data.db.BookDbRepository
@@ -11,7 +11,10 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class BookSearchDetailViewModel(private val bookRepository: BookDbRepository, private val isbn: String) : ViewModel() {
+class BookSearchDetailViewModel(
+    private val bookRepository: BookDbRepository,
+    private val isbn: String
+) : ViewModel() {
 
     private val viewModelJob = Job()
     private val viewModelScope = CoroutineScope(Main + viewModelJob)

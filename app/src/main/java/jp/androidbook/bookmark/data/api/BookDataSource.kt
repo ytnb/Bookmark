@@ -1,7 +1,7 @@
 package jp.androidbook.bookmark.data.api
 
-import android.arch.paging.PageKeyedDataSource
 import android.util.Log
+import androidx.paging.PageKeyedDataSource
 import jp.androidbook.bookmark.data.Items
 
 class BookDataSource(
@@ -9,8 +9,15 @@ class BookDataSource(
     private val title: String
 ) : PageKeyedDataSource<Int, Items>() {
 
-    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Items>) {
-        val response = api.getBookFromTitleIndex(title = title, index = 0, requestSize = params.requestedLoadSize)
+    override fun loadInitial(
+        params: LoadInitialParams<Int>,
+        callback: LoadInitialCallback<Int, Items>
+    ) {
+        val response = api.getBookFromTitleIndex(
+            title = title,
+            index = 0,
+            requestSize = params.requestedLoadSize
+        )
         val list = response.body()?.items ?: emptyList()
         // ISBNがnullのものは除外
         val result = list.filter { !it.volumeInfo.industryIdentifiers.isNullOrEmpty() }
@@ -20,7 +27,11 @@ class BookDataSource(
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Items>) {
         val response =
-            api.getBookFromTitleIndex(title = title, index = params.key, requestSize = params.requestedLoadSize)
+            api.getBookFromTitleIndex(
+                title = title,
+                index = params.key,
+                requestSize = params.requestedLoadSize
+            )
         val list = response.body()?.items ?: emptyList()
         // ISBNがnullのものは除外
         val result = list.filter { !it.volumeInfo.industryIdentifiers.isNullOrEmpty() }

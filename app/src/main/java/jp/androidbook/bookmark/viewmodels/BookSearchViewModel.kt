@@ -1,9 +1,10 @@
 package jp.androidbook.bookmark.viewmodels
 
-import android.arch.lifecycle.*
-import jp.androidbook.bookmark.data.Book
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
 import jp.androidbook.bookmark.data.api.BookApiRepository
-import jp.androidbook.bookmark.data.api.GoogleBookClients
 
 class BookSearchViewModel(private val repository: BookApiRepository) : ViewModel() {
     private val title: MutableLiveData<String> = MutableLiveData()
@@ -12,7 +13,7 @@ class BookSearchViewModel(private val repository: BookApiRepository) : ViewModel
 
     val bookSearchResult = Transformations.switchMap(title) { title ->
         repository.getPagedList("intitle:$title")
-    }!!
+    }
 
     val isNotEmpty: LiveData<Boolean>
         get() = Transformations.map(title) { it.isNotEmpty() }

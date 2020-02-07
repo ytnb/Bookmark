@@ -1,45 +1,46 @@
 package jp.androidbook.bookmark
 
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import jp.androidbook.bookmark.data.db.AppDatabase
 import jp.androidbook.bookmark.data.db.BookDbRepository
 import jp.androidbook.bookmark.databinding.FragmentBookSearchDetailBinding
 import jp.androidbook.bookmark.viewmodels.BookSearchDetailViewModel
-import kotlinx.android.synthetic.main.fragment_book_search_detail.*
 
 
 class BookSearchDetailFragment : Fragment() {
+    private val args: BookSearchDetailFragmentArgs by navArgs()
+    private val model: BookSearchDetailViewModel by viewModels(factoryProducer = {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                val repository =
+                    BookDbRepository.getInstance(AppDatabase.getInstance(context!!).BookDao())
+                @Suppress("UNCHECKED_CAST")
+                return BookSearchDetailViewModel(repository, args.isbn) as T
+            }
+        }
+    })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val isbn = BookSearchDetailFragmentArgs.fromBundle(arguments).isbn
+        val binding =
+            FragmentBookSearchDetailBinding.inflate(inflater, container, false)
 
-        val binding: FragmentBookSearchDetailBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_book_search_detail, container, false)
-
-        val model = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val repository = BookDbRepository.getInstance(AppDatabase.getInstance(context!!).BookDao())
-                @Suppress("UNCHECKED_CAST")
-                return BookSearchDetailViewModel(repository, isbn) as T
-            }
-        }).get(BookSearchDetailViewModel::class.java)
 
         binding.viewmodel = model
-        binding.setLifecycleOwner(this@BookSearchDetailFragment)
+        binding.lifecycleOwner = this@BookSearchDetailFragment
 
         binding.btnSearchDetail.setOnClickListener {
             model.createBook()

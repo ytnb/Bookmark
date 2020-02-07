@@ -1,8 +1,8 @@
 package jp.androidbook.bookmark.data.api
 
-import android.arch.lifecycle.LiveData
-import android.arch.paging.LivePagedListBuilder
-import android.arch.paging.PagedList
+import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import jp.androidbook.bookmark.data.Items
 
 class BookApiRepository(private val api: GoogleBookClients) {

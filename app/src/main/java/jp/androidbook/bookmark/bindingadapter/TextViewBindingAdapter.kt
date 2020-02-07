@@ -1,7 +1,7 @@
 package jp.androidbook.bookmark.bindingadapter
 
-import android.databinding.BindingAdapter
 import android.widget.TextView
+import androidx.databinding.BindingAdapter
 
 @BindingAdapter("text")
 fun TextView.setListString(list: List<String>?) {

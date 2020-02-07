@@ -1,8 +1,8 @@
 package jp.androidbook.bookmark.data.api
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import jp.androidbook.bookmark.data.Book
 import retrofit2.Call
 import retrofit2.Callback

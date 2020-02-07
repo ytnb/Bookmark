@@ -13,16 +13,16 @@
                 type="jp.androidbook.bookmark.viewmodels.BookSearchViewModel"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".BookSearchFragment">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:id="@+id/booksearch_recyclerview"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:scrollbars="vertical"
                 android:visibility="@{viewmodel.isNotEmpty() ? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,5 +58,5 @@
                 android:visibility="@{viewmodel.isLoading() ? View.VISIBLE : View.GONE}"
                 app:layout_constraintTop_toTopOf="parent"/>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

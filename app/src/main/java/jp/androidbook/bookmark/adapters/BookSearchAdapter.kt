@@ -1,23 +1,28 @@
 package jp.androidbook.bookmark.adapters
 
-import android.arch.paging.PagedListAdapter
-import android.databinding.DataBindingUtil
-import android.support.v7.recyclerview.extensions.ListAdapter
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import jp.androidbook.bookmark.BookSearchFragmentDirections
 import jp.androidbook.bookmark.R
 import jp.androidbook.bookmark.data.Items
 import jp.androidbook.bookmark.databinding.SearchListItemBinding
 
-class BookSearchAdapter : PagedListAdapter<Items, BookSearchAdapter.ItemsHolder>(ItemsDiffCallback()) {
+class BookSearchAdapter :
+    PagedListAdapter<Items, BookSearchAdapter.ItemsHolder>(ItemsDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemsHolder {
         val binding: SearchListItemBinding =
-            DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.search_list_item, parent, false)
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.search_list_item,
+                parent,
+                false
+            )
         return ItemsHolder(binding)
     }
 
@@ -34,12 +39,14 @@ class BookSearchAdapter : PagedListAdapter<Items, BookSearchAdapter.ItemsHolder>
 
     private fun createOnClickListener(isbn: String): View.OnClickListener {
         return View.OnClickListener {
-            val action = BookSearchFragmentDirections.actionBookSearchFragmentToBookSearchDetailFragment(isbn)
+            val action =
+                BookSearchFragmentDirections.actionBookSearchFragmentToBookSearchDetailFragment(isbn)
             it.findNavController().navigate(action)
         }
     }
 
-    class ItemsHolder(private val binding: SearchListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ItemsHolder(private val binding: SearchListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Items, clickListener: View.OnClickListener) {
             with(binding) {
                 this.volumeInfo = item.volumeInfo

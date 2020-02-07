@@ -1,6 +1,6 @@
 package jp.androidbook.bookmark.data.api
 
-import android.arch.paging.DataSource
+import androidx.paging.DataSource
 import jp.androidbook.bookmark.data.Items
 
 
