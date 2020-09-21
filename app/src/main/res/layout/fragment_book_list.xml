@@ -22,6 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/booklist_recyclerview"
+                app:items="@{viewmodel.bookLists}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:visibility="@{viewmodel.isEmpty() ? View.GONE : View.VISIBLE}"
                 android:scrollbars="vertical">

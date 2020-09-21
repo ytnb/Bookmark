@@ -11,14 +11,14 @@
                 type="jp.androidbook.bookmark.data.db.BookEntity"/>
 
         <variable
-                name="clickListener"
-                type="android.view.View.OnClickListener"/>
+                name="viewModel"
+                type="jp.androidbook.bookmark.viewmodels.BookListViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{clickListener}">
+            android:onClick="@{() -> viewModel.openBook(book.id)}">
 
         <ImageView
                 app:imageUrl="@{book.thumbnail}"

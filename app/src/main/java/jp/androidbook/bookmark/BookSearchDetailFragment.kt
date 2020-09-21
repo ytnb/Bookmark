@@ -23,7 +23,7 @@ class BookSearchDetailFragment : Fragment() {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 val repository =
-                    BookDbRepository.getInstance(AppDatabase.getInstance(context!!).BookDao())
+                    BookDbRepository.getInstance(AppDatabase.getInstance(context!!).bookDao())
                 @Suppress("UNCHECKED_CAST")
                 return BookSearchDetailViewModel(repository, args.isbn) as T
             }
