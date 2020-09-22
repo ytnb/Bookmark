@@ -24,19 +24,17 @@
 
             <ImageView
                     app:imageUrl="@{viewmodel.book.thumbnail}"
-                    android:layout_width="0dp"
+                    app:width="@{250}"
+                    app:height="@{250}"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
                     android:id="@+id/image_list_detail"
                     android:contentDescription="@string/image_content_description"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginTop="8dp"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline_list_detail"
                     android:scaleType="fitXY"
-                    android:layout_height="350dp"
                     />
 
             <androidx.constraintlayout.widget.Guideline

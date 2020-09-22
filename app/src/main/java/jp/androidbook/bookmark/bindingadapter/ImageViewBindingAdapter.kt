@@ -6,10 +6,11 @@ import com.bumptech.glide.request.RequestOptions
 import jp.androidbook.bookmark.GlideApp
 import jp.androidbook.bookmark.R
 
-@BindingAdapter("imageUrl")
-fun ImageView.loadImage(url: String?) {
+@BindingAdapter("imageUrl", "width", "height", requireAll = false)
+fun ImageView.loadImage(url: String?, width: Int, height: Int) {
     if (!url.isNullOrEmpty()) {
-        GlideApp.with(this.context).load(url).apply(RequestOptions().fitCenter()).into(this)
+        GlideApp.with(this.context).load(url)
+            .override(width, height).into(this)
     } else {
         GlideApp.with(this.context).clear(this)
         this.setImageDrawable(null)
